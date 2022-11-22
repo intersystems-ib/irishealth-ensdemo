@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  ensdemo:
+    image: intersystems/demo/irishealth/ensdemo:latest
+    build:
+      context: .
+    hostname: ensdemo
+    container_name: ensdemo
+    restart: unless-stopped
+    ports:
+    - "9091:1972"
+    - "9092:52773"    
+    volumes:
+    - type: bind
+      source: ./src
+      target: /src
+    - type: bind
+      source: ./shared
+      target: /shared

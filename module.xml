@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+  <Document name="irishealth-ensdemo.ZPM">
+    <Module>
+      <Name>irishealth-ensdemo</Name>
+      <Version>1.0.1</Version>
+      <Description>InterSystems IRIS for Health Demo</Description>
+      <Keywords>ensdemo</Keywords>
+      <Packaging>module</Packaging>
+	  <SystemRequirements Version=">=2020.1" Interoperability="enabled" />
+      <SourcesRoot>demo</SourcesRoot>
+	  <Resource Name="Demo.PKG"/>
+    </Module>
+  </Document>
+</Export>
