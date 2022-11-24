@@ -2,12 +2,6 @@
 
 Configuración básica del contenido de ENSDEMO en InterSystems IRIS for Health.
 
-## DEMO
-
-[![Demo](https://img.shields.io/badge/Demo%20on-Cloud%20Run%20Deploy-F4A460)](https://irishealth-ensdemo.demo.community.intersystems.com/csp/healthshare/ensdemo/EnsPortal.Productions.zen?$NAMESPACE=ENSDEMO&$NAMESPACE=ENSDEMO)
-
-[![Quality Gate Status](https://community.objectscriptquality.com/api/project_badges/measure?project=OneLastTry%2Firishealth-ensdemo&metric=alert_status)](https://community.objectscriptquality.com/dashboard?id=OneLastTry%2Firishealth-ensdemo)
-
 ## Configuración
 
 **Asegúrate de tener Docker en funcionamiento antes de comenzar.**
