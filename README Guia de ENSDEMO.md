@@ -1,4 +1,4 @@
-# Guia para las porducciones en ENSDEMO
+# Guia para las producciones en ENSDEMO
 Punto previo para la guia será acceder al namespace ENSDEMO.
 
 InterSystems IRIS (for Health) o HealthShare Health Connect permite que solo se ejecute una producción en un espacio de nombres dado en un momento dado.
@@ -105,6 +105,7 @@ La página Interoperabilidad > Monitor > Colas muestra el estado actual de todas
 Los productos de InterSystems admiten mensajes HL7v2.x como documentos virtuales. Un documento virtual es un tipo de mensaje que los productos de InterSystems analizan solo parcialmente. Este tipo de mensaje tiene el encabezado de mensaje de producción estándar y las propiedades de mensaje estándar, como ID, Prioridad y SessionId. Sin embargo, los datos del mensaje no están disponibles como propiedades del mensaje; en cambio, se almacena directamente en un global de uso interno, para una mayor velocidad de procesamiento. Para acceder a una producción HL7 ir a Interoperabilidad -> Configurar -> Producción y abrir Demo.HL7.MsgRouter.Production. 
 Digital Imaging and Communications in Medicine (DICOM) es un estándar mundial de tecnología de la información que se utiliza en la mayoría de los hospitales del mundo. Está diseñado para garantizar la interoperabilidad de los sistemas utilizados para producir, almacenar, mostrar, procesar, enviar, recuperar, consultar o imprimir imágenes médicas y documentos estructurados derivados, así como para gestionar el flujo de trabajo relacionado.
 Se proporcionarán producciones de muestra:
+
     1.  Producción de lista de trabajo de modalidad DICOM: preparación de la información para precargar datos de pacientes y programación en una modalidad, por ejemplo, una máquina de rayos X.
 
     2.  Enrutamiento DICOM a producción de almacenamiento: enrutamiento de mensajes que contienen imágenes al punto final adecuado, por ejemplo, un sistema PACS.
@@ -133,9 +134,11 @@ La producción Demo.HL7.MsgRouter.Production utiliza un proceso de enrutamiento 
 ### La plataforma debe disponer de una capa de coordinación que controlará las acciones que se producen en una integración mientras se está ejecutando.
 Una producción es un paquete especializado de software y documentación que integra múltiples sistemas de software potencialmente dispares. Una producción incluye elementos que se comunican con estos sistemas externos, así como elementos que realizan un procesamiento interno a la producción.
 Una producción consta de varios componentes que se comunican entre sí (y con sistemas externos). Hay tres tipos distintos de host comercial:
+
     1. Servicio, recibe información desde fuera de la producción.
     2. Proceso, es responsable de la comunicación y la lógica que está completamente dentro de la producción.
     3. Operación, generalmente envía resultados desde la producción. Las operaciones también se pueden utilizar para la comunicación y la lógica dentro de una producción determinada.
+
 Dentro de una producción, toda la comunicación se realiza mediante mensajes de solicitud y respuesta entre los anfitriones comerciales.
 En el menú Interoperabilidad -> Monitor tenemos las principales tareas de control de una producción.
 ### Deberá de ofrecer funcionalidades de monitorización en tiempo real tanto de la plataforma en su conjunto como de los distintos procesos de negoció implementados.
@@ -151,39 +154,58 @@ System Alerting and Monitoring (SAM) proporciona una solución de monitoreo para
 Para control y seguimiento de los distintos processos de negócio implantados tenemos el Monitor (en Interoperabilidad -> Monitor y en Interoperabilidad -> Gestionar). En Interoperabilidad -> Monitor tenemos los distintos logs permitidos por defecto.
 
 ## Orquestación
+La plataforma proporciona una tecnología de integración e interoperación potente y flexible para que pueda conectar personas, procesos, aplicaciones y sistemas. La interoperabilidad inteligente le permite eliminar silos de datos, integrar y orquestar servicios legacy y nuevos, normalizar y transformar datos, diseñar e implementar procesos y reglas comerciales, y optimizar la gobernanza y el análisis forense.
 
 ### La plataforma deberá de permitir la definición de procesos y reglas de negocio a través de una interface gráfica.
+En la producción Demo.HL7.MsgRouter.Production hay 2 enrutadores de mensajería ABC_Router y XYZ_Router. En cualquier de ellos es posible ver la interfaz grafica que permite definir reglas de negocio y su aplicacion en tiempo de ejecución - sin parada.
+En la producción Demo.Loan.FindRateProduction, el componente Demo.Loan.FindRateDecisionProcessBPL es un ejemplo de un proceso definido mediante interfaz gráfica.  
 
 ### Deberá de permitir la gestión de manera centralizada de todos los aspectos relacionados con la API de comunicaciones hacia/desde el exterior (monitorización del tráfico, identificación de problemas potenciales, gestión de IPs y dominios permitidos, etc).
+La configuración de los componentes permite definir las Direcciones IP permitidas. En el monitor de sistema (Interoperabilidad -> Monitor) tenemos toda la información requerida para la gestión centralizada.
 
 ### El sistema debe de incorporar un Gestor de Procesos de Negocio (BPM) que permita la gestión del estado de los procesos en ejecución.
+Para la gestión de los procesos en ejecución hay 3 elementos fundamentales:
+Designer de Procesos: los analistas de flujo de trabajo pueden crear flujos de trabajo utilizando el Designer de Procesos, la herramienta de edición gráfica de InterSystems IRIS que genera automáticamente un código de trabajo completo a partir de un diagrama de proceso de negocio. Disponible en Interoperabilidad  -> Generar -> Procesos de Negocio
+Business Activity Monitoring: los desarrolladores pueden crear fácilmente paneles corporativos y activadores de eventos para mostrar el estado actual del flujo de trabajo a los analistas empresariales. Disponible en Analytics -> Portal de Usuario
+Traza del Proceso: todas las tareas se envían como mensajes, por lo que los administradores del sistema pueden ver el estado de las tareas mediante la potente herramienta de seguimiento de mensajes. Disponible en Interoperabilidad -> Vista -> Mensajes. 
 
 ### La plataforma incorporará un motor de flujos de trabajo o workflow, a través de interfaces gráficas de manera integrada. Este motor permitirá la gestión de los usuarios y roles intervinientes en los procesos.
-
+La plataforma incorpora un sistema de gestión de flujo de trabajo automatiza la distribución de tareas entre los usuarios. Permite automatizar la distribución de tareas de acuerdo con una estrategia predefinida hace que la asignación de tareas sea más eficiente y la ejecución de tareas más responsable. Disponible en Interoperabilidad -> Gestionar -> Flujo de trabajo. Un ejemplo típico es una aplicación de mesa de ayuda que acepta informes de problemas de los clientes, enruta los informes a los miembros de las organizaciones apropiadas para que tomen medidas y, una vez resuelto el problema, informa los resultados al cliente. Ejemplo disponible en Demo.Workflow.Production.
 ### El Sistema debe de tener la capacidad de implementar el procesamiento de interfaces con terceros, como puede ser el procesamiento de ficheros de movimientos, facturas, entre otros.
-
+La herramienta Record Mapper proporciona una forma rápida y eficiente de asignar datos en archivos de texto a mensajes de producción persistentes y viceversa. En particular, la interfaz de usuario del Portal de administración le permite crear visualmente una representación de un archivo de texto y crear una representación de objeto válida de esos datos que se asigna a un solo objeto de mensaje de producción persistente. El proceso de generar tanto la estructura del objeto de destino como un analizador de entrada/salida está automatizado, dejando solo unas pocas opciones para la estructura persistente de la proyección del objeto. La plataforma genera los objetos de manera que sean un único árbol persistente para proporcionar operaciones completas de eliminación en cascada. Funcionalidad disponible en Interoperabilidad > Generar -> Asignaciones de Registros y Mapa complejos de Registros. Ejemplos en Demo.ComplexMap.SemesterProduction, Demo.RecordMap.Production y Demo.RecordMapBatch.Production.
 ## Desarrollo
 
 ### El sistema debe de tener la capacidad de realizar desarrollos basados en el paradigma de la orientación a objetos.
-
+InterSystems HealthShare Health Connect es una plataforma de datos multimodelo combinada con un lenguaje de programación orientado a objetos.
 ### El sistema debe de permitir la integración con alguna herramienta que permita el control de las versiones del código implementado (SVN, GIT, etc).
 En este propio repositorio GIT lo estamos integrando con la plataforma.
 ### La plantaforma debe disponer de capacidad de desarrollo en diferentes lenguajes de programación no propietarios a través de algún IDE que asista en el diseño y en la construcción de los artefactos (Eclipse, Visual Studio, etc...).
-En este repositorio estamos sugeriendo el uso de VSCode con las necesarios extensiones para integrar con la plataforma.
+En este repositorio estamos sugeriendo el uso de VSCode con las necesarias extensiones para integrar con la plataforma.
 
 ## Almacenamiento
 
 ### La gestión de almacenamiento de la plataforma deberá de ofrecer independencia en el alojamiento físico respecto a la aplicación.
-
+En la plataforma, cualquier código se ejecuta en un espacio de nombres (namespace), que es una entidad lógica. Un espacio de nombres proporciona acceso a los datos y al código, que se almacena (normalmente) en varias bases de datos. Una base de datos es un archivo: un archivo IRIS.DAT. La plataforma proporciona un conjunto de espacios de nombres y bases de datos para su uso, y puede definir otros adicionales. La configuración de namespaces y bases de datos se hace desde: Administración -> Configuración -> Configuración del Sistema -> Namespaces y Bases de Datos.
 ### Deberá proporcionar la persistencia de mensajes, la recuperación de información transaccional en caso de caída del sistema, el registro y trazabilidad de mensajes para el análisis de los mismos.
-
+Este es el comportamiento de la plataforma. Disponible en Interoperabilidad -> Vista -> Mensajes.
 ## Seguridad
-
+La plataforma proporciona todo lo que se necesita para proteger aplicaciones, datos y la privacidad de los usuarios. Hay herramientas integradas y también puede conectar su aplicación a una infraestructura de seguridad externa.
+Para consulta detallada ir a la ![documentación](https://docs.intersystems.com/iris20222/csp/docbook/Doc.View.cls?KEY=ASECURITY) 
 ### Deberá permitir la aplicación de políticas de seguridad (autenticación y autorización) de forma centralizada y desacoplada de las aplicaciones y el BackEnd.
-
+La plataforma proporciona una arquitectura de seguridad simple y unificada con las siguientes características:
+    1. Proporciona una infraestructura de seguridad que facilita a los desarrolladores la creación de funciones de seguridad sólidas y de alto rendimiento en las aplicaciones.
+    2. Supone una carga mínima para el rendimiento y las operaciones.
+    3. Garantiza que la plataforma pueda funcionar de forma eficaz como parte de un entorno seguro y que otras aplicaciones y la plataforma puedan trabajar juntas sin problemas.
+    4. Proporciona infraestructura para la gestión y aplicación de políticas.
+Las capacidades de Seguridad estan disponibles en Administración -> Seguridad
 ### La seguridad de las comunicaciones deberá garantizarse permitiendo las tareas de autenticación, autorización y cifrado utilizando estándares de seguridad como SSL y/o certificados digitales.
+Para protegerse contra el acceso no autorizado a los datos en el disco, la plataforma proporciona cifrado de clave gestionada, un conjunto de tecnologías que protegen los datos en reposo.
+La plataforma soporta Transport Layer Security (TLS) - proporciona una fuerte protección para la comunicación entre pares de entidades. Le permite realizar la autenticación, la protección de la integridad de los datos y el cifrado de datos. Es el sucesor de la capa de sockets seguros (SSL).
+Disponible mediante configuración en Administración -> Seguridad
 
 ### La plataforma deberá de ser capaz de ofrecer un conjunto de servicios de cifrado y descifrado de mensajes.
+La plataforma proporciona una interfaz programática para que las aplicaciones puedan incluir código para cifrar y descifrar elementos de datos individuales (como propiedades de clases particulares) a medida que se almacenan y recuperan.
+Ofrece un conjunto de herramientas en el Portal de administración (Administración -> Seguridad) para crear y administrar claves de cifrado de datos, para administrar claves almacenadas en archivos de claves y para administrar claves almacenadas en un servidor de protocolo de interfaz de administración de claves (KMIP). Puede administrar claves a través del Portal de administración y de las utilidades de línea de comandos.
 
 
 
